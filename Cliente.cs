@@ -3,6 +3,7 @@
 
 class Cliente
 {
+    public int PrestitiRicevuti {get;set;}
     public string Nome { get; set; }
     public string Cognome { get; set; }
     public string CodiceFiscale { get; set; }
@@ -12,6 +13,7 @@ class Cliente
 
     public Cliente(string nome, string cognome, string codiceFiscale, int stipendio)
     {
+        PrestitiRicevuti = 0;
         prestiti = new List<Prestito>();
         Nome = nome;
         Cognome = cognome;

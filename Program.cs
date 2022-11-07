@@ -55,6 +55,8 @@ void MenuIniziale()
     Console.WriteLine("1. aggiungi cliente");
     Console.WriteLine("2. modifica dati cliente");
     Console.WriteLine("3. ricerca cliente");
+    Console.WriteLine("4. registra prestito");
+    Console.WriteLine("5. guarda prestiti");
 
 
     int scelta = testNumero();
@@ -75,7 +77,7 @@ void MenuIniziale()
             MenuIniziale();
             break;
         case 3:
-            Cliente clienteRicercato = banca.CercaCliente();
+            Cliente clienteRicercato = CercaCliente();
 
             Console.WriteLine(clienteRicercato.Nome + " " + clienteRicercato + " " + clienteRicercato.CodiceFiscale + " " + clienteRicercato.Stipendio);
 
@@ -84,6 +86,27 @@ void MenuIniziale()
 
         case 4:
             NuovoPrestito();
+
+            MenuIniziale();
+            break;
+        case 5:
+            Cliente clientePrestiti = CercaCliente();
+            Console.WriteLine("il cliente " + clientePrestiti.Nome + " " + clientePrestiti.Cognome);
+            Console.WriteLine("a attualmente " + clientePrestiti.PrestitiRicevuti + " prestitti ottenuti");
+            Console.WriteLine("vui vedere la lista dei suoi prestiti?");
+            if (siOno())
+            {
+                foreach( Prestito prestito in clientePrestiti.prestiti)
+                {
+                    Console.WriteLine("ammontare " + prestito.Ammontare);
+                    Console.WriteLine("data di inizio " + Convert.ToString(prestito.DataInizio));
+                    Console.WriteLine("data di fine " + Convert.ToString(prestito.DataFine));
+                    Console.WriteLine("rata " + prestito.Rata);
+                    
+                    Console.WriteLine("rate mancanti da implementare non sono riuscito" );
+
+                }
+            }
 
             MenuIniziale();
             break;
@@ -146,7 +169,7 @@ Cliente CercaCliente()
 void NuovoPrestito()
 {
     Console.WriteLine("quale cliente ne usufruisce?");
-    Cliente cliente = banca.CercaCliente();
+    Cliente cliente = CercaCliente();
 
 
     //TODO: da implementare con i centesimi e relativi controlli
@@ -174,8 +197,9 @@ void NuovoPrestito()
     {
         dataInizio = DateTime.Today;
     }
-
-    new Prestito( cliente,ammontare,durata,dataInizio );
+    
+    Prestito QuestoPrestito = new Prestito( cliente,ammontare,durata,dataInizio );
+    cliente.prestiti.Add(QuestoPrestito);
 }
 
 void AggiungiCliente()

@@ -21,7 +21,7 @@ class Prestito
         Durata = durata;
         DataInizio = dataInizio;
         DataFine = dataInizio.AddMonths(durata);
-
+        cliente.PrestitiRicevuti++;
         Rata = ammontare / durata;
     }
 }
