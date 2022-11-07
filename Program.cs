@@ -54,6 +54,7 @@ void MenuIniziale()
     Console.WriteLine("");
     Console.WriteLine("1. aggiungi cliente");
     Console.WriteLine("2. modifica dati cliente");
+    Console.WriteLine("3. ricerca cliente");
 
 
     int scelta = testNumero();
@@ -72,11 +73,28 @@ void MenuIniziale()
                 ModificaDatiCliente(cliente);
             }
             MenuIniziale();
-            
             break;
+        case 3:
+            Cliente clienteRicercato = banca.CercaCliente();
+
+            Console.WriteLine(clienteRicercato.Nome + " " + clienteRicercato + " " + clienteRicercato.CodiceFiscale + " " + clienteRicercato.Stipendio);
+
+            MenuIniziale();
+
+        case 4:
+            NuovoPrestito();
+
+            MenuIniziale();
+            break;
+
     }
 }
 
+void NuovoPrestito()
+{
+    Console.WriteLine("quale cliente ne usufruisce?");
+    Cliente cliente = banca.CercaCliente();
+}
 
 void AggiungiCliente()
 {

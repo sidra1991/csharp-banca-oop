@@ -8,9 +8,11 @@ class Cliente
     public string CodiceFiscale { get; set; }
     public int Stipendio { get; set; }
 
+    public List<Prestito> prestiti;
+
     public Cliente(string nome, string cognome, string codiceFiscale, int stipendio)
     {
-
+        prestiti = new List<Prestito>();
         Nome = nome;
         Cognome = cognome;
         CodiceFiscale = codiceFiscale;
