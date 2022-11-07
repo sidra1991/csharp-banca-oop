@@ -66,7 +66,7 @@ void MenuIniziale()
             AggiungiCliente();
             break;
         case 2:
-            Cliente cliente = banca.CercaCliente();
+            Cliente cliente = CercaCliente();
 
             if (cliente != null)
             {
@@ -91,6 +91,58 @@ void MenuIniziale()
     }
 }
 
+Cliente CercaCliente()
+{
+
+    Console.WriteLine("ricerca il cliente");
+    string ricerca = Convert.ToString(Console.ReadLine());
+    List<Cliente> trovati = new List<Cliente>();
+
+    for (int i = 0; i < banca.clienti.Count; i++)
+    {
+        if (banca.clienti[i].Nome == ricerca || banca.clienti[i].CodiceFiscale == ricerca)
+        {
+            trovati.Add(banca.clienti[i]);
+        }
+    }
+
+    Cliente cliente;
+
+    if (trovati.Count > 1)
+    {
+        Console.WriteLine("scegli quale cliente vuoi modificare");
+        for (int i = 0; i < trovati.Count; i++)
+        {
+            Console.WriteLine("cliente " + i);
+            Console.WriteLine("nome " + trovati[i].Nome);
+            Console.WriteLine("cognome " + trovati[i].Cognome);
+            Console.WriteLine("codice fiscale " + trovati[i].CodiceFiscale);
+            Console.WriteLine("-----------------------");
+        }
+        Console.WriteLine("inserisci l'indicce del cliente scelto");
+        int indice = Convert.ToInt32(Console.ReadLine());
+
+        cliente = banca.clienti[indice - 1];
+    }
+    else if (banca.clienti.Count == 1)
+    {
+        cliente = banca.clienti[0];
+    }
+    else
+    {
+        Console.WriteLine("cliente non trovato cercare ancora?");
+        if (Convert.ToString(Console.ReadLine()) == "si")
+        {
+            cliente = CercaCliente();
+        }
+        else
+        {
+            cliente = null;
+        }
+    }
+    return cliente;
+}
+
 void NuovoPrestito()
 {
     Console.WriteLine("quale cliente ne usufruisce?");
@@ -105,7 +157,7 @@ void NuovoPrestito()
     int durata = testNumero();
 
     Console.WriteLine("inserire una data di inizio diversa da quella odierna?");
-    DateTime data;
+    DateTime dataInizio = new DateTime();
     if (siOno())
     {
         Console.WriteLine("inserire giorno ");
@@ -116,17 +168,14 @@ void NuovoPrestito()
         int anno = testNumero();
         Console.WriteLine("inserire ora, non occorrono i minuti");
         int ora= testNumero();
-        string gg = "PM";
-        if(ora < 12)
-        {
-            gg = "AM";
-        }
-
-
-         data = new DateTime(anno, giorno, mese,ora, gg,0 );
-
+        dataInizio = new DateTime(anno, giorno, mese,ora, 0,0 );
+    }
+    else
+    {
+        dataInizio = DateTime.Today;
     }
 
+    new Prestito( cliente,ammontare,durata,dataInizio );
 }
 
 void AggiungiCliente()

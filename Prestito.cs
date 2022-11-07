@@ -13,23 +13,14 @@ class Prestito
     public DateTime DataInizio { get; set; }
     public int Durata { get; set; }
 
-    public Prestito(int id, Cliente cliente, int ammontare, int durata, DateTime dataInizio)
+    public Prestito(Cliente cliente, int ammontare, int durata, DateTime dataInizio)
     {
         Id++;
         this.cliente = cliente;
         Ammontare = ammontare;
         Durata = durata;
-        DateTime data = DateTime.Today;
-        if (dataInizio != null) 
-        {
-            DataInizio = dataInizio;
-        }
-        else
-        {
-            DataInizio = data;
-        }
-        
-        DataFine = data.AddMonths(durata);
+        DataInizio = dataInizio;
+        DataFine = dataInizio.AddMonths(durata);
 
         Rata = ammontare / durata;
     }
