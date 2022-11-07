@@ -4,21 +4,33 @@
 
 class Prestito
 {
-    public int Id { get; set; }
+    static int Id { get; set; }
     public Cliente cliente { get; set; }
 
-    public double Ammontare { get; set; }
-    public double Rata { get; set; }
-    public string DataInizio { get; set; }
-    public string DataFine { get; set; }
+    public int Ammontare { get; set; }
+    public int Rata { get; set; }
+    public DateTime DataFine { get; set; }
+    public DateTime DataInizio { get; set; }
+    public int Durata { get; set; }
 
-    public Prestito(int id, Cliente cliente, double ammontare, double rata, string dataInizio, string dataFine)
+    public Prestito(int id, Cliente cliente, int ammontare, int durata, DateTime dataInizio)
     {
-        Id = id;
+        Id++;
         this.cliente = cliente;
         Ammontare = ammontare;
-        Rata = rata;
-        DataInizio = dataInizio;
-        DataFine = dataFine;
+        Durata = durata;
+        DateTime data = DateTime.Today;
+        if (dataInizio != null) 
+        {
+            DataInizio = dataInizio;
+        }
+        else
+        {
+            DataInizio = data;
+        }
+        
+        DataFine = data.AddMonths(durata);
+
+        Rata = ammontare / durata;
     }
 }

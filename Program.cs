@@ -80,6 +80,7 @@ void MenuIniziale()
             Console.WriteLine(clienteRicercato.Nome + " " + clienteRicercato + " " + clienteRicercato.CodiceFiscale + " " + clienteRicercato.Stipendio);
 
             MenuIniziale();
+            break;
 
         case 4:
             NuovoPrestito();
@@ -94,6 +95,38 @@ void NuovoPrestito()
 {
     Console.WriteLine("quale cliente ne usufruisce?");
     Cliente cliente = banca.CercaCliente();
+
+
+    //TODO: da implementare con i centesimi e relativi controlli
+    Console.WriteLine("inserire cifra prestata?  (senza inserire centesimi)");
+    int ammontare = testNumero();
+
+    Console.WriteLine("inserire mesi durata prestito");
+    int durata = testNumero();
+
+    Console.WriteLine("inserire una data di inizio diversa da quella odierna?");
+    DateTime data;
+    if (siOno())
+    {
+        Console.WriteLine("inserire giorno ");
+        int giorno = testNumero();
+        Console.WriteLine("inserire mese");
+        int mese = testNumero();
+        Console.WriteLine("inserire anno");
+        int anno = testNumero();
+        Console.WriteLine("inserire ora, non occorrono i minuti");
+        int ora= testNumero();
+        string gg = "PM";
+        if(ora < 12)
+        {
+            gg = "AM";
+        }
+
+
+         data = new DateTime(anno, giorno, mese,ora, gg,0 );
+
+    }
+
 }
 
 void AggiungiCliente()
